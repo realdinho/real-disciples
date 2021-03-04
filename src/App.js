@@ -6,7 +6,8 @@ class App extends Component {
     super();
 
     this.state = {
-      disciples: []
+      disciples: [],
+      searchField: ''
     }
   }
 
@@ -17,9 +18,18 @@ class App extends Component {
   }
 
   render() {
+    const { disciples, searchField} = this.state
+    const filteredDisciples = disciples.filter(disciple => 
+      disciple.name.toLowerCase().includes(searchField.toLowerCase())
+    )
     return (
       <div className="App">
-        <CardList disciples={this.state.disciples} />
+        <input 
+          type='search' 
+          placeholder='search disciples'
+          onChange={e => this.setState({ searchField: e.target.value })} 
+        />
+        <CardList disciples={filteredDisciples} />
       </div>
     )
   }
